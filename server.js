@@ -12,7 +12,6 @@ const userMiddleware = require("./middlewares/userMiddleware");
 const exerciseMiddleware = require("./middlewares/exerciseMiddleware");
 
 dotenv.config({ path: __dirname + "/.env" });
-
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -23,19 +22,21 @@ mongoose.connection.on("error", function(err) {
   console.error("MongoDB error: %s", err);
 });
 
+
+
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/views/index.html");
-// });
-
 app.get("/", (req, res) => {
-  res.send({ data: { message: "Hello" } });
+  res.sendFile(__dirname + "/views/index.html");
 });
+
+// app.get("/", (req, res) => {
+//   res.send({ data: { message: "Hello" } });
+// });
 
 app.post(
   "/api/exercise/new-user",
